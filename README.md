@@ -21,8 +21,8 @@ GameProjectName
 +-- Plugins
     +-- BTC
         +-- BTC.plugin
-        +-- Content
         +-- LICENSE
+        +-- README.md
         +-- Resources
         +-- Source
 +-- ...
@@ -38,7 +38,7 @@ Default mapping of controller buttons to UE4 events
 | UE4 event | Generic<br/>controller | ACGAM R1 | VR SHINECON /<br/> HIZEK |
 |---|---|---|---|
 | Gamepad<br/> D-pad Left | Left | - | Joystick<br/> Left |
-| Gamepad<br/> D-pad Right | Right | - | Joystick<br/> Right |
+| Gamepad<br/> D-pad Right | Right | - | Joystick<br/> Right |
 | Gamepad<br/> D-pad Up | Up | - | Joystick<br/> Up |
 | Gamepad<br/> D-pad Down | Down | - | Joystick<br/> Down |
 | Gamepad Right<br/> Shoulder | Enter | - | OK |
@@ -54,7 +54,7 @@ Default mapping of controller buttons to UE4 events
 3. Use the preprocessor macros `USE_ENTER_BUTTON`, `USE_ARROW_BUTTONS`, and `USE_SOUND_BUTTONS` to define which controller buttons should be re-mapped
 4. Use the constants in the `BTCEventMapping` namespace to define which controller buttons are mapped to which UE4 events (i.e. to modify above table)
 
-Important: If your controller does not implement the Bluetooth HID profile (e.g., ACGAM R1), remove the `USE_ENTER_BUTTON` because otherwise the virtual keyboard will appear in VR mode.
+Important: If your controller does not implement the Bluetooth HID profile (e.g., ACGAM R1), remove `USE_ENTER_BUTTON` because otherwise the virtual keyboard will appear in VR mode.
 
 ## Tested Software Versions
 
