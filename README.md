@@ -31,7 +31,9 @@ GameProjectName
 
 ### Usage
 
-In Blueprints, for example: ![](BlueprintExample.png)
+In Blueprints, for example:
+
+<img src="BlueprintExample.png" width=350>
 
 Default mapping of controller buttons to UE4 events
 
