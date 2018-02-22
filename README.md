@@ -31,7 +31,7 @@ GameProjectName
 
 ### Usage
 
-In Blueprints, for example: ![][Blueprint_example.png]
+In Blueprints, for example: ![](BlueprintExample.png)
 
 Default mapping of controller buttons to UE4 events
 
@@ -64,8 +64,12 @@ Important: If your controller does not implement the Bluetooth HID profile (e.g.
 
 ## Tested Bluetooth Remote Controllers
 
-* ACGAM R1 (supported buttons: A, B, C, D if the controller is in "music mode", which can be activated by pressing M-A)
-* VR SHINECON / HIZEK (supported buttons: Enter, Left, Right, Up, Down if the controller is in "VR mode")
+* ACGAM R1
+ * Supported buttons: A, B, C, D
+ * Controller has to be in "music mode", which can be activated by pressing M-A
+* VR SHINECON / HIZEK
+ * Supported buttons: Enter, Left, Right, Up, Down
+ * Controller has to be in "VR mode"
 
 ## Implementation
 
