@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "BTC",
+	"Description": "Bluetooth Controller Support for iOS VR Apps",
+	"Category": "VR Input Devices",
+	"CreatedBy": "Matthias Ring",
+	"CreatedByURL": "https://github.com/ma2th/btc",
+	"DocsURL": "https://github.com/ma2th/btc",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/ma2th/btc",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "BTC",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+            "WhitelistPlatforms" : [ "IOS" ]
+		}
+	]
+}
