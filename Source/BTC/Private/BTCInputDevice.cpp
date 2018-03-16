@@ -15,25 +15,33 @@
 // limitations under the License.
 
 #include "BTCInputDevice.h"
-#include "InputCoreTypes.h"
 
-#if PLATFORM_IOS
-#include "IOSView.h"
-#include "IOSAppDelegate.h"
-#include "BTCViewController.h"
-#endif
 
-FBTCInputDevice::FBTCInputDevice(const TSharedRef<FGenericApplicationMessageHandler>& NewMessageHandler) :
+FBTCInputDevice::FBTCInputDevice(const TSharedRef<FGenericApplicationMessageHandler>& NewMessageHandler, bool Active) :
 MessageHandler(NewMessageHandler)
 {
-    AddViewController();
+#if PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^{
+        btcController = [[BTCViewController alloc] init];
+        btcController.queue = &EventQueue;
+    });
+#endif
+    
+    if (Active) {
+        Activate();
+    }
 }
 
 FBTCInputDevice::~FBTCInputDevice()
 {
+#if PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [btcController dealloc];
+    });
+#endif
 }
 
-void FBTCInputDevice::AddViewController()
+void FBTCInputDevice::Activate()
 {
 #if PLATFORM_IOS
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -41,12 +49,21 @@ void FBTCInputDevice::AddViewController()
         IOSViewController* viewController = appDelegate.IOSController;
         FIOSView* iOSView = appDelegate.IOSView;
         
-        BTCViewController* btcController = [[BTCViewController alloc] init];
         [viewController addChildViewController:btcController];
         btcController.view.bounds = iOSView.bounds;
-        btcController.queue = &EventQueue;
         [iOSView addSubview:btcController.view];
         [btcController didMoveToParentViewController: viewController];
+    });
+#endif
+}
+
+void FBTCInputDevice::Deactivate()
+{
+#if PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [btcController willMoveToParentViewController:nil];
+        [btcController.view removeFromSuperview];
+        [btcController removeFromParentViewController];
     });
 #endif
 }

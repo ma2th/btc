@@ -19,6 +19,7 @@
 #include "CoreMinimal.h"
 #include "ModuleManager.h"
 #include "IInputDeviceModule.h"
+#include "ThreadSafeBool.h"
 
 #define BTC_MODULE_NAME "BTC"
 
@@ -35,4 +36,9 @@ public:
     {
         return FModuleManager::Get().IsModuleLoaded(BTC_MODULE_NAME);
     }
+        
+    virtual void Activate() = 0;
+    virtual void Deactivate() = 0;
 };
+
+

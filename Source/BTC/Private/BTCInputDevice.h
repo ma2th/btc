@@ -19,11 +19,18 @@
 #include "CoreMinimal.h"
 #include "IInputDevice.h"
 #include "Queue.h"
+#include "InputCoreTypes.h"
+
+#if PLATFORM_IOS
+#include "IOSView.h"
+#include "IOSAppDelegate.h"
+#include "BTCViewController.h"
+#endif
 
 class FBTCInputDevice : public IInputDevice
 {
 public:
-    FBTCInputDevice(const TSharedRef<FGenericApplicationMessageHandler>& NewMessageHandler);
+    FBTCInputDevice(const TSharedRef<FGenericApplicationMessageHandler>& NewMessageHandler, bool Active);
     ~FBTCInputDevice();
     
     virtual void SetMessageHandler(const TSharedRef< FGenericApplicationMessageHandler >& NewMessageHandler) override;
@@ -32,10 +39,15 @@ public:
     virtual bool Exec(UWorld* InWorld, const TCHAR* Cmd, FOutputDevice& OutputDevice) override;
     virtual void SetChannelValue(int32 ControllerId, FForceFeedbackChannelType ChannelType, float Value) override;
     virtual void SetChannelValues(int32 ControllerId, const FForceFeedbackValues &Values) override;
-    
-    void AddViewController();
+
+    void Activate();
+    void Deactivate();
     
 private:
     TSharedRef<FGenericApplicationMessageHandler> MessageHandler;
     TQueue<FGamepadKeyNames::Type> EventQueue;
+    
+#if PLATFORM_IOS
+    BTCViewController* btcController;
+#endif
 };

@@ -39,6 +39,10 @@
 #endif
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self.textField becomeFirstResponder];
+}
+
 #ifdef USE_SOUND_BUTTONS
 - (void) captureAudioButtons {
     MPVolumeView* volumeView = nil;

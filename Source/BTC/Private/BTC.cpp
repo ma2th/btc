@@ -19,29 +19,55 @@
 
 class FBTCDeviceModule : public IBTCDeviceModule
 {
+public:
     virtual void StartupModule() override;
     
     virtual void ShutdownModule() override;
     
     virtual TSharedPtr<class IInputDevice> CreateInputDevice(const TSharedRef<FGenericApplicationMessageHandler>& MessageHandler);
+    
+    virtual void Activate() override;
+    virtual void Deactivate() override;
+    
+private:
+    FThreadSafeBool Active = true;
+    TSharedPtr<FBTCInputDevice> Device;
 };
 
 IMPLEMENT_MODULE(FBTCDeviceModule, BTC)
 
 void FBTCDeviceModule::StartupModule()
 {
-    UE_LOG(LogTemp, Log, TEXT("BTC plugin starting"));
     IModularFeatures::Get().RegisterModularFeature(IInputDeviceModule::GetModularFeatureName(), this);
 }
 
 void FBTCDeviceModule::ShutdownModule()
 {
-    UE_LOG(LogTemp, Log, TEXT("BTC plugin shutting down"));
     IModularFeatures::Get().UnregisterModularFeature(IInputDeviceModule::GetModularFeatureName(), this);
 }
 
 TSharedPtr<class IInputDevice> FBTCDeviceModule::CreateInputDevice(const TSharedRef<FGenericApplicationMessageHandler>& MessageHandler)
 {
-    UE_LOG(LogTemp, Log, TEXT("BTC plugin create input device"));
-    return MakeShareable(new FBTCInputDevice(MessageHandler));
+    Device = MakeShareable(new FBTCInputDevice(MessageHandler, Active));
+    return StaticCastSharedPtr<IInputDevice>(Device);
+}
+
+void FBTCDeviceModule::Activate()
+{
+    Active = true;
+    
+    if (Device.IsValid())
+    {
+        Device->Activate();
+    }
+}
+
+void FBTCDeviceModule::Deactivate()
+{
+    Active = false;
+    
+    if (Device.IsValid())
+    {
+        Device->Deactivate();
+    }
 }

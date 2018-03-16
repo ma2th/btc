@@ -22,40 +22,12 @@ public class BTC : ModuleRules
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
-		PublicIncludePaths.AddRange(
-			new string[] {
-				"BTC/Public"
-			});
-				
-		
-		PrivateIncludePaths.AddRange(
-			new string[] {
-				"BTC/Private",
-			});
-			
-		
-		PublicDependencyModuleNames.AddRange(
-			new string[]
-			{
-				"Core",
-			});
-			
-		
-		PrivateDependencyModuleNames.AddRange(
-			new string[]
-			{
-				"CoreUObject",
-				"Engine",
-				"Slate",
-				"SlateCore",
-                "InputCore",
-                "InputDevice"
-			});
-		
-		
-		DynamicallyLoadedModuleNames.AddRange(
-			new string[]
-			{
-			});
+		PublicIncludePaths.AddRange(new string[] { "BTC/Public" });
+		PrivateIncludePaths.AddRange(new string[] {	"BTC/Private" });
+
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "InputDevice" });
+		PrivateDependencyModuleNames.AddRange( new string[] { "CoreUObject", "Engine", "Slate", "SlateCore", "InputCore" });
+
+		DynamicallyLoadedModuleNames.AddRange(new string[] {});
 	}
 }
