@@ -14,10 +14,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#if PLATFORM_IOS
+
 #include "Queue.h"
 #include "BTCConfiguration.h"
-
-#if PLATFORM_IOS
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVAudioSession.h>
