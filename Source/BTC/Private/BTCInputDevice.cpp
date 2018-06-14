@@ -55,6 +55,7 @@ void FBTCInputDevice::Activate()
         [btcController didMoveToParentViewController: viewController];
     });
 #endif
+    EventQueue.Empty();
 }
 
 void FBTCInputDevice::Deactivate()

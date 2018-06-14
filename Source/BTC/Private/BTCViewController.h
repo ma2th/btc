@@ -41,6 +41,7 @@
 #endif
 
 #ifdef USE_SOUND_BUTTONS
+@property (nonatomic, assign) int skipFirstTwoMuteEvents;
 @property (nonatomic, assign) float lastVolumeValue;
 @property (nonatomic, assign) UISlider* volumeSlider;
 

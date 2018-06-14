@@ -48,6 +48,8 @@
     MPVolumeView* volumeView = nil;
     MPRemoteCommandCenter *remoteCommandCenter = nil;
     
+    self.skipFirstTwoMuteEvents = 2;
+    
     volumeView = [[MPVolumeView alloc] initWithFrame: CGRectMake(-1000, -1000, 200, 20)];
     [self.view addSubview: volumeView];
     
@@ -86,11 +88,16 @@
     }
     
     if (self.volumeSlider.value == 0) {
-        [FIOSAsyncTask CreateTaskWithBlock : ^ bool(void) {
-            _queue->Enqueue(BTCEventMapping::MUTE);
-            return true;
-        }];
-        [self resetVolumeSlider];
+        if (self.skipFirstTwoMuteEvents <= 0) {
+            [FIOSAsyncTask CreateTaskWithBlock : ^ bool(void) {
+                _queue->Enqueue(BTCEventMapping::MUTE);
+                return true;
+            }];
+            [self resetVolumeSlider];
+        } else {
+            NSLog(@"Skipping mute event on purpose as it is always fired automatically after initialization");
+            self.skipFirstTwoMuteEvents--;
+        }
     } else if (self.volumeSlider.value > self.lastVolumeValue) {
         [FIOSAsyncTask CreateTaskWithBlock : ^ bool(void) {
             _queue->Enqueue(BTCEventMapping::VOLUME_UP);
