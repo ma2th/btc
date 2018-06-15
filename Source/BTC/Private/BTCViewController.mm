@@ -31,6 +31,10 @@
     [super viewDidLoad];
     
 #ifdef USE_SOUND_BUTTONS
+    // Do not reset on deactivation because mute event seems
+    // to get fired only after viewDidLoad, not after viewDidAppear
+    self.skipFirstTwoMuteEvents = 2;
+    
     [self captureAudioButtons];
 #endif
     
@@ -39,17 +43,11 @@
 #endif
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self.textField becomeFirstResponder];
-}
-
 #ifdef USE_SOUND_BUTTONS
 - (void) captureAudioButtons {
     MPVolumeView* volumeView = nil;
     MPRemoteCommandCenter *remoteCommandCenter = nil;
-    
-    self.skipFirstTwoMuteEvents = 2;
-    
+        
     volumeView = [[MPVolumeView alloc] initWithFrame: CGRectMake(-1000, -1000, 200, 20)];
     [self.view addSubview: volumeView];
     
@@ -151,6 +149,10 @@
 #endif
 
 #ifdef USE_ENTER_BUTTON
+- (void)viewDidAppear:(BOOL)animated {
+    [self.textField becomeFirstResponder];
+}
+
 - (void) captureEnterKey {
     self.textField = [[UITextField alloc] initWithFrame:CGRectMake(-1000, -1000, 200, 20)];
     self.textField.delegate = self;
