@@ -29,5 +29,10 @@ public class BTC : ModuleRules
 		PrivateDependencyModuleNames.AddRange( new string[] { "CoreUObject", "Engine", "Slate", "SlateCore", "InputCore" });
 
 		DynamicallyLoadedModuleNames.AddRange(new string[] {});
+
+        // Required for UE >= 4.22
+        if (Target.Platform == UnrealTargetPlatform.IOS) {
+            PublicFrameworks.AddRange(new string[] { "AVFoundation", "MediaPlayer" });
+        }
 	}
 }
